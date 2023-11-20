@@ -87,7 +87,9 @@ class ScreenCapturePlugin :
                 requestPermission()
             }
 
-            "takeCapture" -> takeCapture(call, result)
+            "takeCapture" -> {
+                takeCapture(call, result)
+            }
 
             else -> result.notImplemented()
         }
@@ -119,11 +121,6 @@ class ScreenCapturePlugin :
         when (requestCode) {
             REQUEST_MEDIA_PROJECTION -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
-                    val mediaProjectionManager =
-                        context.getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
-                    mediaProjection =
-                        mediaProjectionManager.getMediaProjection(resultCode, activity.intent)
-
                     res = true
                 }
                 result.success(res)
@@ -135,16 +132,19 @@ class ScreenCapturePlugin :
         return res
     }
 
-
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun takeCapture(call: MethodCall, result: Result) {
         if (mediaProjection == null) {
-            result.error(
-                "NEED_REQUEST_PERMISSION",
-                "Must request permission before take capture",
-                null
-            )
-            return
+//            result.error(
+//                "NEED_REQUEST_PERMISSION",
+//                "Must request permission before take capture",
+//                null
+//            )
+//            return
+            val mediaProjectionManager =
+                context.getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+            mediaProjection =
+                mediaProjectionManager.getMediaProjection(Activity.RESULT_OK, activity.intent)
         }
 
         val region = call.arguments as Map<*, *>
@@ -185,7 +185,6 @@ class ScreenCapturePlugin :
             val byteArray = outputStream.toByteArray()
             result.success(byteArray)
         }, 100)
-
     }
 }
 

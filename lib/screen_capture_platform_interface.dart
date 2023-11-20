@@ -29,7 +29,7 @@ abstract class ScreenCapturePlatform extends PlatformInterface {
     throw UnimplementedError('requestPermission() has not been implemented.');
   }
 
-  Future<Uint8List?> takeCapture() {
+  Future<Uint8List?> takeCapture({required int x, required int y, required int width, required int height}) {
     throw UnimplementedError('takeCapture() has not been implemented.');
   }
 }

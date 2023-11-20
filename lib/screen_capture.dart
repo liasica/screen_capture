@@ -7,7 +7,7 @@ class ScreenCapture {
     return ScreenCapturePlatform.instance.requestPermission();
   }
 
-  Future<Uint8List?> takeCapture() {
-    return ScreenCapturePlatform.instance.takeCapture();
+  Future<Uint8List?> takeCapture({required int x, required int y, required int width, required int height}) {
+    return ScreenCapturePlatform.instance.takeCapture(x: x, y: y, width: width, height: height);
   }
 }

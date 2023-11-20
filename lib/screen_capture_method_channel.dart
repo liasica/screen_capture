@@ -15,7 +15,12 @@ class MethodChannelScreenCapture extends ScreenCapturePlatform {
   }
 
   @override
-  Future<Uint8List?> takeCapture() async {
-    return await methodChannel.invokeMethod<Uint8List?>('takeCapture');
+  Future<Uint8List?> takeCapture({required int x, required int y, required int width, required int height}) async {
+    return await methodChannel.invokeMethod<Uint8List?>('takeCapture', {
+      'x': x,
+      'y': y,
+      'width': width,
+      'height': height,
+    });
   }
 }

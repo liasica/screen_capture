@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
               MaterialButton(
                 child: const Text('Take Capture'),
                 onPressed: () async {
-                  final result = await _screenCapturePlugin.takeCapture();
+                  final result = await _screenCapturePlugin.takeCapture(x: 0, y: 0, width: 100, height: 100);
                   print(result);
                 },
               ),
